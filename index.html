@@ -76,12 +76,15 @@
             <div class="h-1 bg-gradient-to-r from-purple-400 to-pink-500 w-24 mx-auto my-4 rounded-full"></div>
             <p class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 to-pink-500 text-transparent bg-clip-text">
                 <script>
-                    const startDate = new Date('2025-08-22');
+                    // 一天一个固定的随机发起人
+                    const promoters = ['泠', '悦笔'];
                     const today = new Date();
-                    const diffTime = Math.abs(today - startDate);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    const isEvenDay = diffDays % 2 === 0;
-                    document.write(isEvenDay ? '泠' : '悦笔');
+                    // 使用年月日作为种子
+                    const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+                    // 使用简单的伪随机数算法
+                    const random = (seed * 9301 + 49297) % 233280 / 233280;
+                    const randomIndex = Math.floor(random * promoters.length);
+                    document.write(promoters[randomIndex]);
                 </script>
             </p>
             <p class="text-gray-500 mt-6"> </p>
@@ -108,7 +111,6 @@
         }
         document.addEventListener("DOMContentLoaded", function() {
             fetchHitokoto();
-            setInterval(fetchHitokoto, 10000);
         });
 
     </script>
